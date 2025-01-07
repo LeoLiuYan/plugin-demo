@@ -1,18 +1,35 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.leoliuyan.plugindemo</id>
-    <name>plugin-demo</name>
+    <name>Plugins-Demo</name>
     <vendor>leoliuyan</vendor>
+
 
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
+    <actions>
+        <action id="HelloWorldAction" class="com.github.leoliuyan.plugindemo.HelloworldAction" text="HelloWorldAction">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+
+            <keyboard-shortcut first-keystroke="ctrl H" keymap="$default" />
+        </action>
+    </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.leoliuyan.plugindemo.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-    </extensions>
+        <applicationConfigurable
+                instance="com.github.leoliuyan.plugindemo.UISettingsConfig"
+                id="com.github.leoliuyan.plugindemo.UISettingsConfig"
+                displayName="LiuYanSettingsConfig"
+                parentId="tools"
+        />
 
-    <applicationListeners>
-        <listener class="com.github.leoliuyan.plugindemo.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+        <toolWindow
+                factoryClass="com.github.leoliuyan.plugindemo.UISidebarConfig"
+                id="UISidecarSettings"
+                anchor="right"
+        />
+
+        <notificationGroup displayType="BALLOON" id="listener" />
+    </extensions>
 </idea-plugin>
